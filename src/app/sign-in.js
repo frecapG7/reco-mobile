@@ -3,38 +3,37 @@ import { Image, StyleSheet, View } from "react-native";
 import { Button, Divider, Surface, Text, useTheme } from "react-native-paper";
 import { FormText } from "../components/form/FormText";
 import { FormPassword } from "../components/form/FormPassword";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { useSignIn } from "../hooks/auth";
+import { SignInForm } from "../components/auth/SignInForm";
 
 
 export default function SignInPage() {
 
 
-    const { control, handleSubmit, errors } = useForm();
 
-    const { theme } = useTheme();
+    const signIn = useSignIn();
+
+    const { colors } = useTheme();
+    const style = styles(colors);
+
+    const onSubmit = (data) => {
+        signIn.mutate(data, {
+            onSuccess: (data) => router.replace("app/(app)/home")
+        });
+    }
 
     return (
-        <View style={styles.container}>
+        <View style={style.container}>
             <Surface mode="elevated"
-                style={[styles.formContainer,
-                {
-                    backgroundColor: theme?.colors.surface
-                }
-                ]}>
+                style={style.formContainer}>
 
-                <Image style={styles.icon} source={require('../../assets/icon.png')} />
-
-                <FormText name="username" label="Username" control={control} errors={errors} />
-                <FormPassword name="password" label="Password" control={control} errors={errors} />
-
-
-                <Button mode="contained" onPress={() => console.log("Pressed")}>
-                    Submit
-                </Button>
-
+                <Image style={style.icon} source={require('../../assets/icon.png')} />
+                <SignInForm onSubmit={onSubmit} />
                 <Divider />
 
-                <Text variant="labelSmall">Don't have an account ? <Link href="sign-up">SignUp</Link></Text>
+                <Text variant="labelSmall"
+                    style={styles.signUp}>Don't have an account ? <Link href="sign-up">SignUp</Link></Text>
             </Surface>
         </View>
     );
@@ -42,11 +41,12 @@ export default function SignInPage() {
 
 
 
-const styles = StyleSheet.create({
+const styles = (colors) => StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: colors.primary
     },
     icon: {
         width: 100,
@@ -58,6 +58,13 @@ const styles = StyleSheet.create({
         width: '80%',
         padding: 16,
         elevation: 4,
-        gap: 10,
+        borderRadius: 25,
+        borderColor: colors.primary,
+        backgroundColor: colors.secondary
+
     },
+    signUp: {
+        marginTop: 16,
+        alignSelf: 'flex-end',
+    }
 });

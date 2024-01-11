@@ -7,7 +7,8 @@ const lightTheme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        primary: '#000000',
+        primary: '#ddb5e3',
+        secondary: '#fccfd8',
         accent: '#ffffff',
         background: '#ffffff',
         surface: '#ffffff',
@@ -18,6 +19,14 @@ const lightTheme = {
         onSurface: '#000000',
         notification: '#000000',
     },
+    input: {
+        text: {
+            marginBottom: 5,
+            borderColor: '#000000',
+            padding: 5,
+            borderRadius: 5,
+        }
+    }
 };
 
 

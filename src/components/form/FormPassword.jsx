@@ -1,6 +1,8 @@
 
+import { useState } from "react";
 import { useController } from "react-hook-form"
-import { TextInput } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import { HelperText, TextInput, useTheme } from "react-native-paper";
 
 export const FormPassword = ({ label, control, name, error, ...rest }) => {
 
@@ -12,17 +14,25 @@ export const FormPassword = ({ label, control, name, error, ...rest }) => {
     });
 
 
+    const { input } = useTheme();
+
+    const styles = StyleSheet.create(input);
+
+    const [showPassword, setShowPassword] = useState(false);
     return (
         <>
             <TextInput
                 label={label}
                 onChangeText={onChange}
                 value={value}
-                error={error}
-                secureTextEntry
-                right={<TextInput.Icon name="eye" />}
+                secureTextEntry={!showPassword}
+                right={() => <TextInput.Icon name="eye" />}
                 {...rest}
+                style={styles.text}
             />
+            <HelperText type="error" visible={!!error}>
+                {JSON.stringify(error?.message)}
+            </HelperText>
         </>
     )
 }
