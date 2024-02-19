@@ -4,26 +4,39 @@ import { StyleSheet, View } from "react-native";
 import { FormText } from "../components/form/FormText";
 import { FormPassword } from "../components/form/FormPassword";
 import { useForm } from "react-hook-form";
+import { useStyles } from "../hooks/style/styles";
 
 
 export default function SignUpPage() {
 
     const { control, handleSubmit, errors } = useForm();
 
+    const { container, formContainer } = useStyles();
+
+
     return (
-        <View style={styles.container}>
-            <Surface style={styles.formContainer}>
+        <View style={container}>
+            <Surface mode="elevated" style={formContainer}>
                 <Logo />
-                <Text variant="titleMedium" style={styles.title}>Sign Up</Text>
-                <FormText name="username" label="Username" control={control} errors={errors} />
-                <FormPassword name="password" label="Password" control={control} errors={errors} />
+                <Text variant="titleMedium"
+                    style={styles.title}>
+                    Sign Up
+                </Text>
+                <FormText name="username"
+                    label="Username"
+                    control={control}
+                    errors={errors} />
+                <FormPassword name="password"
+                    label="Password"
+                    control={control}
+                    errors={errors} />
                 <FormPassword name="confirmPassword" label="Confirm Password" control={control} errors={errors} />
                 <Button mode="contained" onPress={() => console.log("Pressed")}>
                     Submit
                 </Button>
 
             </Surface>
-        
+
         </View>
     );
 
@@ -32,10 +45,10 @@ export default function SignUpPage() {
 
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-        alignItems : 'center',
-        justifyContent : 'center',
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     formContainer: {
         width: '80%',
@@ -43,7 +56,7 @@ const styles = StyleSheet.create({
         elevation: 4,
         gap: 10,
     },
-    title:{
+    title: {
         textAlign: 'center',
     }
 });

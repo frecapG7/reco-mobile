@@ -14,12 +14,14 @@ export default function AuthLayout(){
             <Tabs.Screen name="home"
                 options={{
                     title: "Home",
+                    href: "home",
                     headerShown: true,
                 }}
             />
             <Tabs.Screen name="add"
                 options={{
                     title: "Add",
+                    href: "add",
                     headerShown: true,
                 }}
             />

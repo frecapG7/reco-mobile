@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
-import { Image, StyleSheet, View } from "react-native";
-import { Button, Divider, Surface, Text, useTheme } from "react-native-paper";
-import { FormText } from "../components/form/FormText";
-import { FormPassword } from "../components/form/FormPassword";
+import {  StyleSheet, View } from "react-native";
+import {  Divider, Surface, Text } from "react-native-paper";
 import { Link, router } from "expo-router";
 import { useSignIn } from "../hooks/auth";
 import { SignInForm } from "../components/auth/SignInForm";
+import { Logo } from "../components/image/Logo";
+import { useStyles } from "../hooks/style/styles";
+import { useSession } from "../ctx";
 
 
 export default function SignInPage() {
@@ -13,22 +13,28 @@ export default function SignInPage() {
 
 
     const signIn = useSignIn();
+    const {signIn: login } = useSession();
 
-    const { colors } = useTheme();
-    const style = styles(colors);
+    const {container, formContainer} = useStyles();
+
 
     const onSubmit = (data) => {
+
         signIn.mutate(data, {
-            onSuccess: (data) => router.replace("app/(app)/home")
+            
+            onSuccess: (data) => {
+                router.replace("(app)/home");
+                login(data);
+            }
         });
     }
 
     return (
-        <View style={style.container}>
+        <View style={container}>
             <Surface mode="elevated"
-                style={style.formContainer}>
+                style={formContainer}>
 
-                <Image style={style.icon} source={require('../../assets/icon.png')} />
+                <Logo />
                 <SignInForm onSubmit={onSubmit} />
                 <Divider />
 
@@ -40,29 +46,7 @@ export default function SignInPage() {
 }
 
 
-
-const styles = (colors) => StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.primary
-    },
-    icon: {
-        width: 100,
-        height: 100,
-        alignSelf: 'center',
-        marginBottom: 32,
-    },
-    formContainer: {
-        width: '80%',
-        padding: 16,
-        elevation: 4,
-        borderRadius: 25,
-        borderColor: colors.primary,
-        backgroundColor: colors.secondary
-
-    },
+const styles = StyleSheet.create({
     signUp: {
         marginTop: 16,
         alignSelf: 'flex-end',

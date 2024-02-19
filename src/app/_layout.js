@@ -3,6 +3,7 @@ import { PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { lightTheme } from "../theme";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { SessionProvider } from "../ctx";
 
 
 const queryClient = new QueryClient();
@@ -11,23 +12,30 @@ export default function HomeLayout() {
     return (
         <SafeAreaProvider>
             <PaperProvider theme={lightTheme}>
-                <QueryClientProvider client={queryClient}>
-                    <Stack screenOptions={{
-                        headerShown: true,
-                        title: "Reco"
-                    }}>
-                        <Stack.Screen name="sign-in" options={{
+                <SessionProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Stack screenOptions={{
                             headerShown: true,
-                            headerTitle: "Sign In",
-                            title: "Sign In"
-                        }} />
-                        <Stack.Screen name="sign-up" options={{
-                            headerShown: true,
-                            headerTitle: "Sign Up",
-                            title: "Sign Up"
-                        }} />
-                    </Stack>
-                </QueryClientProvider>
+                            title: "Reco"
+                        }}>
+                            <Stack.Screen name="sign-in" options={{
+                                headerShown: true,
+                                headerTitle: "Sign In",
+                                title: "Sign In"
+                            }} />
+                            <Stack.Screen name="sign-up" options={{
+                                headerShown: true,
+                                headerTitle: "Sign Up",
+                                title: "Sign Up"
+                            }} />
+                            <Stack.Screen name="(app)" options={{
+                                headerShown: false,
+                                headerTitle: "Home",
+                                title: "Home"
+                            }} />
+                        </Stack>
+                    </QueryClientProvider>
+                </SessionProvider>
             </PaperProvider>
         </SafeAreaProvider>
     )
