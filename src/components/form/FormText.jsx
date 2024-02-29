@@ -1,22 +1,23 @@
 import { useController } from "react-hook-form"
 import { StyleSheet, View } from "react-native";
 import { HelperText, TextInput, useTheme } from "react-native-paper";
+import { errorMessage } from "../../utils/errors";
 
 
 
 
-export const FormText = ({ label, control, name, error, ...rest }) => {
+export const FormText = ({ label, control, name, disabled, ...rest }) => {
 
-    const { field: { onChange, value } } = useController({
+    const {
+        field: { onChange, value },
+        fieldState: { error },
+        formState: { isSubmitting}
+    } = useController({
         name,
         defaultValue: '',
         rules: { required: true },
         control
     });
-
-    const { input } = useTheme();
-
-    const styles = StyleSheet.create(input);
 
 
     return (
@@ -25,11 +26,12 @@ export const FormText = ({ label, control, name, error, ...rest }) => {
                 label={label}
                 onChangeText={onChange}
                 value={value}
+                style={styles.input}
+                disabled={disabled || isSubmitting}
                 {...rest}
-                style={styles.text}
             />
             <HelperText type="error" visible={!!error}>
-                {error?.message}
+                {errorMessage(error)}
             </HelperText>
         </>
     )
@@ -38,10 +40,8 @@ export const FormText = ({ label, control, name, error, ...rest }) => {
 const styles = StyleSheet.create({
 
     input: {
-        marginBottom: 20,
         borderWidth: 1,
         borderColor: '#000',
-        padding: 10,
         borderRadius: 5,
     }
 });

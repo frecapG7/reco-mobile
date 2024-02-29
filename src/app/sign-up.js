@@ -5,11 +5,12 @@ import { FormText } from "../components/form/FormText";
 import { FormPassword } from "../components/form/FormPassword";
 import { useForm } from "react-hook-form";
 import { useStyles } from "../hooks/style/styles";
+import { SignUpForm } from "../components/user/SignUpForm";
 
 
 export default function SignUpPage() {
 
-    const { control, handleSubmit, errors } = useForm();
+
 
     const { container, formContainer } = useStyles();
 
@@ -22,19 +23,7 @@ export default function SignUpPage() {
                     style={styles.title}>
                     Sign Up
                 </Text>
-                <FormText name="username"
-                    label="Username"
-                    control={control}
-                    errors={errors} />
-                <FormPassword name="password"
-                    label="Password"
-                    control={control}
-                    errors={errors} />
-                <FormPassword name="confirmPassword" label="Confirm Password" control={control} errors={errors} />
-                <Button mode="contained" onPress={() => console.log("Pressed")}>
-                    Submit
-                </Button>
-
+                <SignUpForm onSubmit={(data) => console.debug(data)} />
             </Surface>
 
         </View>
@@ -45,17 +34,6 @@ export default function SignUpPage() {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    formContainer: {
-        width: '80%',
-        padding: 16,
-        elevation: 4,
-        gap: 10,
-    },
     title: {
         textAlign: 'center',
     }

@@ -28,6 +28,12 @@ export default function HomeLayout() {
                                 headerTitle: "Sign Up",
                                 title: "Sign Up"
                             }} />
+                        
+                            <Stack.Screen name="verify-token" options={{
+                                headerShown: true,
+                                headerTitle: "Verify Token",
+                                title: "Verify Token"
+                            }} />
                             <Stack.Screen name="(app)" options={{
                                 headerShown: false,
                                 headerTitle: "Home",

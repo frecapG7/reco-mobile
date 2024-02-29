@@ -39,7 +39,7 @@ export default function SignInPage() {
                 <Divider />
 
                 <Text variant="labelSmall"
-                    style={styles.signUp}>Don't have an account ? <Link href="sign-up">SignUp</Link></Text>
+                    style={styles.signUp}>Don't have an account ? <Link href="verify-token">SignUp</Link></Text>
             </Surface>
         </View>
     );

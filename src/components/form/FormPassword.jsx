@@ -4,21 +4,17 @@ import { useController } from "react-hook-form"
 import { StyleSheet } from "react-native";
 import { HelperText, TextInput, useTheme } from "react-native-paper";
 
-export const FormPassword = ({ label, control, name, error, ...rest }) => {
+export const FormPassword = ({ label, control, name, rules, ...rest }) => {
 
-    const { field: { onChange, value } } = useController({
-        name,
-        defaultValue: '',
-        rules: { required: true },
-        control
-    });
-
-
-    const { input } = useTheme();
-
-    const styles = StyleSheet.create(input);
-
+    const { field: { onChange, value },
+        fieldState: { error }, } = useController({
+            control,
+            name,
+            defaultValue: '',
+            rules: { required: rules?.required },
+        });
     const [showPassword, setShowPassword] = useState(false);
+
     return (
         <>
             <TextInput
@@ -26,9 +22,9 @@ export const FormPassword = ({ label, control, name, error, ...rest }) => {
                 onChangeText={onChange}
                 value={value}
                 secureTextEntry={!showPassword}
-                right={() => <TextInput.Icon name="eye" />}
+                right={<TextInput.Icon name="eye" onPress={() => setShowPassword(!setShowPassword)} />}
                 {...rest}
-                style={styles.text}
+                style={styles.input}
             />
             <HelperText type="error" visible={!!error}>
                 {JSON.stringify(error?.message)}
@@ -36,3 +32,14 @@ export const FormPassword = ({ label, control, name, error, ...rest }) => {
         </>
     )
 }
+
+
+
+const styles = StyleSheet.create({
+
+    input: {
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 5,
+    }
+});
