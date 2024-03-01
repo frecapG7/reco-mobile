@@ -7,7 +7,9 @@ import { useForm } from "react-hook-form";
 
 export const SignInForm = ({ onSubmit }) => {
 
-    const { control, handleSubmit } = useForm();
+    const { control,
+         handleSubmit,
+        formState: {isValid} } = useForm();
 
     return (
         <>
@@ -23,11 +25,14 @@ export const SignInForm = ({ onSubmit }) => {
                 label="Password"
                 name="password"
                 control={control}
+                rules={{
+                    required: true
+                }}
             />
             <Button
                 mode="contained"
                 onPress={handleSubmit(onSubmit)}
-            >
+                disabled={!isValid}>
                 Submit
             </Button>
         </>

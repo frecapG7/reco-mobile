@@ -1,17 +1,11 @@
 import { useMutation } from "react-query";
+import {post} from "./api";
 
 
 
 const signIn = async (username, password) => {
-    console.log("sign in");
-    return {
-        token: "1234567890",
-        user: {
-            id: 1,
-            username: "test",
-            email: "test",
-        }
-    }
+    const response = await post('/auth', { name: username, password: password });
+    return response;
 };
 
 export const useSignIn = () => {

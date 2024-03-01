@@ -16,8 +16,8 @@ const AuthContext = createContext({
 
 export const useSession = () => {
     const value = useContext(AuthContext);
-    if(process.env.NODE_ENV !== 'production'){
-        if(!value){
+    if (process.env.NODE_ENV !== 'production') {
+        if (!value) {
             throw new Error('useSession must be used within <SessionProvider />');
         }
     }
@@ -36,7 +36,14 @@ export const SessionProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            signIn: (session) => setSession(session),
+            signIn: (data) => setSession({
+                user: {
+                    id: data.user_id,
+                    username: data.user_name,
+                },
+                token: data.access_token,
+                loggedIn: true
+            }),
             signOut: () => setSession({
                 user: null,
                 token: null,

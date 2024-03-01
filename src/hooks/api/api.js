@@ -34,17 +34,18 @@ export const post = async (path, body) => {
             },
             body: JSON.stringify(body)
         });
-        var data;
-        
+        let data;
+
         const contentType = response.headers.get("content-type");
 
         if (contentType && contentType.includes("application/json"))
             data = await response.json();
 
+
         if (!response.ok)
             return handleError(response.status, data);
 
-            
+
         return Promise.resolve(data);
     } catch (error) {
         console.error(error);
@@ -104,8 +105,8 @@ const url = (path) => {
 
 
 const handleError = (status, data) => {
-    
-    switch(status){
+
+    switch (status) {
         case 401:
             // Redirect to login
             break;
@@ -113,5 +114,5 @@ const handleError = (status, data) => {
             break;
     }
 
-    return Promise.reject({ status: status, error: data?.message});
+    return Promise.reject({ status: status, error: data?.message });
 }

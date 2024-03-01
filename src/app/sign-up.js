@@ -1,9 +1,6 @@
 import { Button, Surface, Text } from "react-native-paper";
 import { Logo } from "../components/image/Logo";
 import { StyleSheet, View } from "react-native";
-import { FormText } from "../components/form/FormText";
-import { FormPassword } from "../components/form/FormPassword";
-import { useForm } from "react-hook-form";
 import { useStyles } from "../hooks/style/styles";
 import { SignUpForm } from "../components/user/SignUpForm";
 
