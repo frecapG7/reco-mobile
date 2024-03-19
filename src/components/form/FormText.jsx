@@ -1,17 +1,22 @@
 import { useController } from "react-hook-form"
 import { StyleSheet, View } from "react-native";
 import { HelperText, TextInput, useTheme } from "react-native-paper";
-import { errorMessage } from "../../utils/errors";
+import {i18nError} from '../../utils/formUtils';
 
 
 
-
-export const FormText = ({ label, control, name, disabled, ...rest }) => {
+export const FormText = ({ label,
+    control,
+    name,
+    disabled,
+    multiline = false,
+    placeholder,
+    ...rest }) => {
 
     const {
         field: { onChange, value },
         fieldState: { error },
-        formState: { isSubmitting}
+        formState: { isSubmitting }
     } = useController({
         name,
         defaultValue: '',
@@ -26,12 +31,15 @@ export const FormText = ({ label, control, name, disabled, ...rest }) => {
                 label={label}
                 onChangeText={onChange}
                 value={value}
-                style={styles.input}
+                // style={styles.input}
                 disabled={disabled || isSubmitting}
+                multiline={multiline}
+                mode="outlined"
+                placeholder={placeholder}
                 {...rest}
             />
             <HelperText type="error" visible={!!error}>
-                {errorMessage(error)}
+                {i18nError(error)}
             </HelperText>
         </>
     )

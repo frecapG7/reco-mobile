@@ -1,4 +1,4 @@
-
+import { useSession } from "../../ctx";
 
 
 const API_URL = "https://reco-back-979f321211cf.herokuapp.com";
@@ -6,12 +6,15 @@ const API_URL = "https://reco-back-979f321211cf.herokuapp.com";
 
 export const get = async (path) => {
 
+    const {session} = useSession();
+
     try {
         const response = await fetch(url(path), {
             method: "GET",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                ...(session?.token && {Authorization: `Bearer ${session.token}`})
             },
         });
         const data = await response.json();

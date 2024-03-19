@@ -35,6 +35,8 @@ export default function SignInPage() {
         });
     }
 
+    router.replace("(app)/home")
+    
     return (
         <View style={container}>
             <Surface mode="elevated"

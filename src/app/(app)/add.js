@@ -1,10 +1,18 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
+import { AddRequest } from "../../components/add/AddRequest";
+import { useStyles } from "../../hooks/style/styles";
 
 export default function AddPage() {
+
+
+    const {container} = useStyles()
+
     return (
-        <View>
-            <Text>Add Page</Text>
+        <View style={{
+            flex: 1,
+        }}>
+            <AddRequest />
         </View>
     )
 }

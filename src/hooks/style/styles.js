@@ -17,6 +17,10 @@ const styles = (colors) => StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: colors.primary
     },
+    container2: {
+        flexGrow: 1,
+        backgroundColor: colors.primary
+    },
     formContainer: {
         width: '80%',
         padding: 16,
@@ -24,6 +28,8 @@ const styles = (colors) => StyleSheet.create({
         borderRadius: 25,
         borderColor: colors.primary,
         backgroundColor: colors.secondary
-
+    },
+    card: {
+        backgroundColor: colors.secondary
     }
 });
